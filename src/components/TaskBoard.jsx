@@ -2,23 +2,35 @@ import React, { useState, useEffect } from "react";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import TaskColumn from "./TaskColumn";
 import { v4 as uuidv4 } from "uuid";
-import { fetchTasks, addTask, updateTask } from "../api/tasks"; // API methods
+import { fetchTasks, addTask, updateTask } from "../api/tasks"; 
 
 const defaultColumns = ["To Do", "In Progress", "Done"];
 
 const TaskBoard = () => {
   const [columns] = useState(defaultColumns);
   const [tasks, setTasks] = useState({});
-  const [showTaskModal, setShowTaskModal] = useState(false); // State to show/hide task modal
+  const [showTaskModal, setShowTaskModal] = useState(false); 
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
     status: "To Do",
   });
-
+  const [errors, setErrors] = useState({ title: "" });
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { title: "" };
+  
+    if (!newTask.title.trim()) {
+      newErrors.title = "Title is required";
+      isValid = false;
+    }
+  
+    setErrors(newErrors);
+    return isValid;
+  };
   useEffect(() => {
     const loadTasks = async () => {
-      const data = await fetchTasks(); // Fetch tasks from API
+      const data = await fetchTasks();
       const tasksByColumn = data.reduce((acc, task) => {
         acc[task.status] = acc[task.status] || [];
         acc[task.status].push(task);
@@ -31,19 +43,19 @@ const TaskBoard = () => {
   }, []);
 
   const addNewTask = async () => {
-    if (newTask.title) {
-      const taskData = { ...newTask, id: uuidv4() };
-      const createdTask = await addTask(taskData); // Save task using API
-
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        [createdTask.status]: [...(prevTasks[createdTask.status] || []), createdTask],
-      }));
-      setShowTaskModal(false); // Close modal after task is added
-      setNewTask({ title: "", description: "", status: "To Do" }); // Reset form
-    }
+    if (!validateForm()) return;
+  
+    const taskData = { ...newTask, id: uuidv4() };
+    const createdTask = await addTask(taskData);
+  
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [createdTask.status]: [...(prevTasks[createdTask.status] || []), createdTask],
+    }));
+    setShowTaskModal(false);
+    setNewTask({ title: "", description: "", status: "To Do" });
+    setErrors({ title: "" });
   };
-
   const handleDragEnd = async (event) => {
     const { active, over } = event;
     if (!over) return;
@@ -58,7 +70,7 @@ const TaskBoard = () => {
     const taskToMove = tasks[fromColumn].find((task) => task.id === active.id);
     const updatedTask = { ...taskToMove, status: toColumn };
 
-    await updateTask(updatedTask.id, updatedTask); // Update task status in API
+    await updateTask(updatedTask.id, updatedTask); 
 
     setTasks((prevTasks) => ({
       ...prevTasks,
@@ -85,35 +97,78 @@ const TaskBoard = () => {
       </button>
 
       {showTaskModal && (
-        <div style={{ padding: "20px", backgroundColor: "white", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", borderRadius: "4px", maxWidth: "400px", margin: "auto" }}>
-          <h3>Create New Task</h3>
-          <input
-            type="text"
-            placeholder="Task Title"
-            value={newTask.title}
-            onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-            style={{ width: "100%", padding: "8px", marginBottom: "10px", borderRadius: "4px" }}
-          />
-          <textarea
-            placeholder="Task Description"
-            value={newTask.description}
-            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-            style={{ width: "100%", padding: "8px", marginBottom: "10px", borderRadius: "4px" }}
-          />
-          <select
-            value={newTask.status}
-            onChange={(e) => setNewTask({ ...newTask, status: e.target.value })}
-            style={{ width: "100%", padding: "8px", marginBottom: "10px", borderRadius: "4px" }}
-          >
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
-          </select>
-          <button onClick={addNewTask} style={{ backgroundColor: "blue", color: "white", padding: "8px 16px", borderRadius: "4px", marginTop: "10px" }}>
-            Add Task
-          </button>
-        </div>
-      )}
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "white",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      borderRadius: "4px",
+      maxWidth: "400px",
+      margin: "auto",
+    }}
+  >
+    <h3>Create New Task</h3>
+
+    <input
+      type="text"
+      placeholder="Task Title"
+      value={newTask.title}
+      onChange={(e) => {
+        setNewTask({ ...newTask, title: e.target.value });
+        setErrors({ ...errors, title: "" }); 
+      }}
+      style={{
+        width: "100%",
+        padding: "8px",
+        marginBottom: errors.title ? "4px" : "10px",
+        borderRadius: "4px",
+        border: errors.title ? "1px solid red" : "1px solid #ccc",
+      }}
+    />
+    {errors.title && (
+      <p style={{ color: "red", marginBottom: "10px", fontSize: "0.9rem" }}>
+        {errors.title}
+      </p>
+    )}
+
+    <textarea
+      placeholder="Task Description"
+      value={newTask.description}
+      onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+      style={{
+        width: "100%",
+        padding: "8px",
+        marginBottom: "10px",
+        borderRadius: "4px",
+      }}
+    />
+
+    <select
+      value={newTask.status}
+      onChange={(e) => setNewTask({ ...newTask, status: e.target.value })}
+      style={{ width: "100%", padding: "8px", marginBottom: "10px", borderRadius: "4px" }}
+    >
+      <option value="To Do">To Do</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Done">Done</option>
+    </select>
+
+    <button
+      onClick={addNewTask}
+      style={{
+        backgroundColor: "blue",
+        color: "white",
+        padding: "8px 16px",
+        borderRadius: "4px",
+        marginTop: "10px",
+        width: "100%",
+      }}
+    >
+      Add Task
+    </button>
+  </div>
+)}
+
 
 <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
 <div
