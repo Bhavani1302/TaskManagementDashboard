@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# ✅ Task Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a **Task Management Dashboard** designed to help users manage their tasks efficiently using a clean and responsive **Kanban board** layout. Built with **React** and powered by **@dnd-kit** for seamless drag-and-drop, this project also includes a **mock REST API (json-server)** to persist tasks across sessions.
 
-## Available Scripts
+Users can add tasks, view them under appropriate statuses (To Do, In Progress, Done), and update their statuses through a drag-and-drop interface.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🌟 Key Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ✅ **Kanban Board Interface**
+  - Organized into 3 columns: **To Do**, **In Progress**, and **Done**
+  - Responsive and clean UI for better task visibility
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- ➕ **Add New Tasks**
+  - Modal form to enter task title, optional description, and select initial status
+  - Automatically rendered in the selected column
+  - Task data is saved via a POST API call
 
-### `npm test`
+- 🔄 **Drag & Drop Support**
+  - Smooth drag-and-drop of tasks between columns using `@dnd-kit/core`
+  - Automatically updates the task's status both in the UI and backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 💾 **Persistent Data**
+  - All tasks are stored and updated via API calls
+  - Uses `json-server` as a mock backend for local development
 
-### `npm run build`
+- 🖥️ **Fully Responsive**
+  - Optimized for both desktop and mobile views
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Follow the instructions below to run the project locally.
 
-### `npm run eject`
+### 🔧 Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node.js (v16+ recommended)
+- npm (or yarn)
+- `json-server` installed globally
+```bash
+npm install -g json-server
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+📦 Installation
+Clone the repository
+git clone https://github.com/YOUR_USERNAME/TaskManagementDashboard.git
+cd TaskManagementDashboard
+Install frontend dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+npm install
+Start the mock backend (json-server)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+▶️ Start Commands
+Here’s a quick reference of commands to run the project:
 
-## Learn More
+bash
+Copy
+Edit
+# Start the mock API server
+json-server --watch db.json --port 3001
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Start the frontend React app
+npm start
