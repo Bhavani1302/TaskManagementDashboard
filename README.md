@@ -44,12 +44,13 @@ npm install -g json-server
 
 📦 Installation
 Clone the repository
-git clone https://github.com/YOUR_USERNAME/TaskManagementDashboard.git
+git clone https://github.com/Bhavani1302/TaskManagementDashboard.git
 cd TaskManagementDashboard
 Install frontend dependencies
 
 npm install
 Start the mock backend (json-server)
+
 
 ▶️ Start Commands
 Here’s a quick reference of commands to run the project:
