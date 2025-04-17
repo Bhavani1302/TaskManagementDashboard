@@ -2,7 +2,9 @@ const fs = require("fs");
 const path = require("path");
 
 exports.handler = async () => {
-  const filePath = path.resolve(__dirname, "../../db.json");
+  const filePath = path.resolve(__dirname, "functions", "db.json");
+  console.log("Resolved file path: ", filePath); 
+
   try {
     const data = fs.readFileSync(filePath, "utf8");
     const json = JSON.parse(data);
