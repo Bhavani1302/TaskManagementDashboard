@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
-  publish = "build"
   functions = "netlify/functions"
 
+[functions]
+  included_files = ["netlify/functions/db.json"]
