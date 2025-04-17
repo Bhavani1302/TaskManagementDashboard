@@ -5,6 +5,12 @@
         "description": "with features drag and drop",
         "status": "To Do",
         "id": "1744867800505"
+      },
+      {
+        "title": "to create a task manager dashboard",
+        "description": "with features of 3 columns (todo,progress and done)",
+        "status": "Done",
+        "id": "1744867800506"
       }
     ]
   }
