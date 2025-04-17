@@ -1,10 +1,10 @@
 export const fetchTasks = async () => {
-  const res = await fetch("https://tubular-salamander-727124.netlify.app/.netlify/functions/getTasks",);
+  const res = await fetch("/.netlify/functions/getTasks");
   return res.json();
 };
 
 export const addTask = async (task) => {
-  const res = await fetch("https://tubular-salamander-727124.netlify.app/.netlify/functions/addTask", {
+  const res = await fetch("/.netlify/functions/addTask", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(task),
@@ -13,7 +13,7 @@ export const addTask = async (task) => {
 };
 
 export const updateTask = async (id, updatedTask) => {
-  const res = await fetch("https://tubular-salamander-727124.netlify.app/.netlify/functions/updateTask", {
+  const res = await fetch("/.netlify/functions/updateTask", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, ...updatedTask }),
