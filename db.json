@@ -1,16 +1,10 @@
 {
   "tasks": [
     {
-      "id": "33bfe3de-b419-47d5-91e3-c4a1caab79a0",
-      "title": "To create a Kanban Board",
-      "description": "kanban board with drag and drop functionality",
-      "status": "Done"
-    },
-    {
-      "id": "61aa1709-2c5a-4f99-8b94-5f5222e4d2a2",
-      "title": "To create a react app",
-      "description": "creating application using REACT JS",
-      "status": "To Do"
+      "title": "to create a kanban board",
+      "description": "with features drag and drop",
+      "status": "To Do",
+      "id": "1744867800505"
     }
   ]
 }
