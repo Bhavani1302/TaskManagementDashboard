@@ -10,7 +10,7 @@ exports.handler = async (event) => {
   }
 
   const updatedTask = JSON.parse(event.body);
-  const filePath = path.resolve(__dirname, "../../db.json");
+const filePath = path.resolve(__dirname, "db.json"); // Ensure this points to the correct location
 
   try {
     const fileData = fs.readFileSync(filePath, "utf8");

@@ -1,6 +1,10 @@
 export const fetchTasks = async () => {
   const res = await fetch("/.netlify/functions/getTasks");
-  return res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch tasks");
+  }
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
 };
 
 export const addTask = async (task) => {
